@@ -1,0 +1,74 @@
+.outside-dialog {
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.dialog {
+  position: fixed;
+  z-index: 1001;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.dialog h2 {
+  font-family: var(--poetsen);
+}
+.dialog p {
+  margin: 20px 0;
+}
+
+.dialog .btn-container {
+  display: flex;
+  justify-content: end;
+}
+
+.dialog .btn-container button {
+  border: none;
+  background: none;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.dialog .btn-container button:hover {
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.dialog .btn-container button:first-child {
+  margin-right: 15px;
+}
+
+.dialog .btn-delete {
+  color: red;
+}
+
+.dialog .btn-update {
+  color: green;
+}
+
+.dialog input,
+.dialog textarea {
+  width: 100%;
+  border: 1px solid black;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.dialog textarea {
+  height: 100px;
+}
+
+.dialog label {
+  font-weight: bold;
+}
