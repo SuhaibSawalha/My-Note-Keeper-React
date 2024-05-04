@@ -14,8 +14,7 @@ function ServerNotFound() {
       <div className="run-server-code">
         <div>
           <code>
-            npm init <br /> npm install express mongodb joi cors <br /> node
-            server.js
+            <span className="node-command">node</span> server.js
           </code>
         </div>
       </div>

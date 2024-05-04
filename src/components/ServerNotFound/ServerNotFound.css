@@ -13,3 +13,6 @@
   color: white;
   padding: 10px;
 }
+.server-not-found .node-command {
+  color: yellow;
+}
