@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
 import Note from "./../Note";
 import "./Notes.css";
+import ServerNotFound from "./../ServerNotFound";
+import Loading from "./../Loading";
 
 function Notes() {
   const [notes, setNotes] = useState([]);
+  const [serverLoaded, setServerLoaded] = useState(false);
 
   const fetchNotes = async () => {
     try {
@@ -12,7 +15,9 @@ function Notes() {
       setNotes(data);
     } catch (error) {
       console.error("Error fetching notes:", error);
+      setNotes(null);
     }
+    setServerLoaded(true);
   };
 
   async function removeNote(id) {
@@ -31,16 +36,17 @@ function Notes() {
   }
 
   async function updateNote(newNote) {
-    const id = newNote._id;
-    delete newNote._id;
     try {
-      const response = await fetch(`http://localhost:5000/api/notes/${id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newNote),
-      });
+      const response = await fetch(
+        `http://localhost:5000/api/notes/${newNote._id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newNote),
+        }
+      );
       if (!response.ok) {
         console.error("Failed to update note");
       } else {
@@ -55,17 +61,29 @@ function Notes() {
     fetchNotes();
   }, []);
 
-  return (
-    <div className="notes">
-      {notes.map((note) => (
-        <Note
-          key={note._id}
-          note={note}
-          removeNote={removeNote}
-          updateNote={updateNote}
-        />
-      ))}
-    </div>
+  return serverLoaded ? (
+    notes ? (
+      notes.length === 0 ? (
+        <div className="no-notes">
+          <h2>No notes found</h2>
+        </div>
+      ) : (
+        <div className="notes">
+          {notes.map((note) => (
+            <Note
+              key={note._id}
+              note={note}
+              removeNote={removeNote}
+              updateNote={updateNote}
+            />
+          ))}
+        </div>
+      )
+    ) : (
+      <ServerNotFound />
+    )
+  ) : (
+    <Loading />
   );
 }
 

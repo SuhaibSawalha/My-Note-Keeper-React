@@ -1,0 +1,12 @@
+.loading {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.loading h2 {
+  font-family: var(--protest);
+  font-size: 1.5rem;
+  color: #32cd32;
+  margin-right: 10px;
+}

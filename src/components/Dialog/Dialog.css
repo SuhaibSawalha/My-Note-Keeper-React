@@ -67,8 +67,21 @@
 
 .dialog textarea {
   height: 100px;
+  resize: vertical;
 }
 
 .dialog label {
   font-weight: bold;
+}
+
+.dialog .error {
+  color: red;
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 0.8rem;
+}
+
+.dialog .input-error {
+  border: 1px solid red;
+  margin-bottom: 0;
 }

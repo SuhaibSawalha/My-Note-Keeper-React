@@ -1,0 +1,15 @@
+.server-not-found {
+  padding: 20px;
+}
+.server-not-found h2 {
+  font-family: var(--protest);
+  color: red;
+  margin-bottom: 10px;
+}
+.server-not-found .run-server-code div {
+  display: inline-block;
+  margin: 20px 0;
+  background-color: #232730;
+  color: white;
+  padding: 10px;
+}
