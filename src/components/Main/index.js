@@ -1,9 +1,9 @@
 import Notes from "./../Notes";
 
-function Main() {
+function Main({ searchText }) {
   return (
     <main>
-      <Notes />
+      <Notes searchText={searchText} />
     </main>
   );
 }

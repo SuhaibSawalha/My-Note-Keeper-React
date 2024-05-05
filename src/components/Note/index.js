@@ -75,7 +75,10 @@ function Note({ note, removeNote, updateNote }) {
         onClick={() => openUpdateDialog()}
       >
         <div>
-          <h3 className="title">{escape(note.title)}</h3>
+          <h3
+            className="title"
+            dangerouslySetInnerHTML={{ __html: escape(note.title) }}
+          ></h3>
           <p
             className="content"
             dangerouslySetInnerHTML={{ __html: escape(note.content) }}

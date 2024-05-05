@@ -5,7 +5,7 @@ import ServerNotFound from "./../ServerNotFound";
 import Loading from "./../Loading";
 import TakeNote from "./../TakeNote";
 
-function Notes() {
+function Notes({ searchText }) {
   const [notes, setNotes] = useState([]);
   const [serverLoaded, setServerLoaded] = useState(false);
 
@@ -84,21 +84,28 @@ function Notes() {
   return serverLoaded ? (
     notes ? (
       <div>
-        <TakeNote addNote={addNote} />
+        {searchText === "" && <TakeNote addNote={addNote} />}
         {notes.length === 0 ? (
           <div className="no-notes">
             <h2>No notes found</h2>
           </div>
         ) : (
           <div className="notes">
-            {notes.map((note) => (
-              <Note
-                key={note._id}
-                note={note}
-                removeNote={removeNote}
-                updateNote={updateNote}
-              />
-            ))}
+            {notes.map(
+              (note) =>
+                (searchText === "" ||
+                  note.title.toLowerCase().includes(searchText.toLowerCase()) ||
+                  note.content
+                    .toLowerCase()
+                    .includes(searchText.toLowerCase())) && (
+                  <Note
+                    key={note._id}
+                    note={note}
+                    removeNote={removeNote}
+                    updateNote={updateNote}
+                  />
+                )
+            )}
           </div>
         )}
       </div>

@@ -1,7 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Protest+Revolution");
 @import url("https://fonts.googleapis.com/css2?family=Poetsen+One&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400&display=swap");
 
 :root {
   --protest: "Protest Revolution", sans-serif;
   --poetsen: "Poetsen One", sans-serif;
+  --open-sans: "Open Sans", sans-serif;
 }

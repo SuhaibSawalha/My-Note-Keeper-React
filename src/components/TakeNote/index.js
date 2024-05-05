@@ -1,8 +1,16 @@
 import "./TakeNote.css";
 import { useEffect, useState } from "react";
+import Snackbar from "./../Snackbar";
 
 function TakeNote({ addNote }) {
   const [isInputPressed, setIsInputPressed] = useState(false);
+
+  const [newNote, setNewNote] = useState({ title: "", content: "" });
+
+  const [fillTitle, setFillTitle] = useState(false);
+  const [fillContent, setFillContent] = useState(false);
+
+  const [isANoteAdded, setIsANoteAdded] = useState(false);
 
   const handleInsideClick = (e) => {
     e.stopPropagation();
@@ -11,12 +19,9 @@ function TakeNote({ addNote }) {
 
   const handleOutsideClick = () => {
     setIsInputPressed(false);
+    setFillTitle(false);
+    setFillContent(false);
   };
-
-  const [newNote, setNewNote] = useState({ title: "", content: "" });
-
-  const [fillTitle, setFillTitle] = useState(false);
-  const [fillContent, setFillContent] = useState(false);
 
   function handleAdd(e) {
     e.preventDefault();
@@ -44,6 +49,10 @@ function TakeNote({ addNote }) {
         content: "",
       });
       addNote(newNote);
+      setIsANoteAdded(true);
+      setTimeout(() => {
+        setIsANoteAdded(false);
+      }, 2000);
     }
   }
 
@@ -74,6 +83,7 @@ function TakeNote({ addNote }) {
 
   return (
     <div className="take-note">
+      {isANoteAdded && <Snackbar content={"Note added successfully"} />}
       <form onClick={handleInsideClick}>
         <input
           type="text"
