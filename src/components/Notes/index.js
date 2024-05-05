@@ -3,6 +3,7 @@ import Note from "./../Note";
 import "./Notes.css";
 import ServerNotFound from "./../ServerNotFound";
 import Loading from "./../Loading";
+import TakeNote from "./../TakeNote";
 
 function Notes() {
   const [notes, setNotes] = useState([]);
@@ -57,28 +58,50 @@ function Notes() {
     }
   }
 
+  async function addNote(newNote) {
+    try {
+      const response = await fetch("http://localhost:5000/api/notes", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newNote),
+      });
+      if (!response.ok) {
+        console.error("Failed to add note");
+      } else {
+        await fetchNotes();
+      }
+    } catch (error) {
+      console.error("Error adding note:", error);
+    }
+  }
+
   useEffect(() => {
     fetchNotes();
   }, []);
 
   return serverLoaded ? (
     notes ? (
-      notes.length === 0 ? (
-        <div className="no-notes">
-          <h2>No notes found</h2>
-        </div>
-      ) : (
-        <div className="notes">
-          {notes.map((note) => (
-            <Note
-              key={note._id}
-              note={note}
-              removeNote={removeNote}
-              updateNote={updateNote}
-            />
-          ))}
-        </div>
-      )
+      <div>
+        <TakeNote addNote={addNote} />
+        {notes.length === 0 ? (
+          <div className="no-notes">
+            <h2>No notes found</h2>
+          </div>
+        ) : (
+          <div className="notes">
+            {notes.map((note) => (
+              <Note
+                key={note._id}
+                note={note}
+                removeNote={removeNote}
+                updateNote={updateNote}
+              />
+            ))}
+          </div>
+        )}
+      </div>
     ) : (
       <ServerNotFound />
     )

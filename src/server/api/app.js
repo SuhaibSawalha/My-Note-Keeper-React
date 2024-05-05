@@ -38,7 +38,11 @@ const schema = Joi.object({
   creationDate: Joi.date().required(),
 }).strict();
 function validateNote(note) {
-  return schema.validate(note);
+  return schema.validate({
+    title: note.title,
+    content: note.content,
+    creationDate: new Date(note.creationDate),
+  });
 }
 
 app.post("/api/notes", async (req, res) => {
@@ -61,11 +65,7 @@ app.put("/api/notes/:id", async (req, res) => {
   if (!note) {
     return res.status(404).send("Note not found");
   }
-  const { error } = validateNote({
-    title: body.title,
-    content: body.content,
-    creationDate: new Date(body.creationDate),
-  });
+  const { error } = validateNote(body);
   if (error) {
     return res.status(400).send(error.details[0].message);
   }

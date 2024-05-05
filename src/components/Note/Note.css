@@ -6,6 +6,7 @@
   flex-direction: column;
   justify-content: space-between;
   transition: all 0.3s ease;
+  min-width: 200px;
 }
 
 .note:hover {
@@ -38,6 +39,7 @@
 }
 
 .note .trash {
+  margin-bottom: -5px;
   opacity: 0;
   cursor: pointer;
   background: none;
