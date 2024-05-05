@@ -1,0 +1,33 @@
+.snackbar-container {
+  position: fixed;
+  top: 60px;
+  left: 10px;
+  width: 100%;
+  padding: 20px;
+}
+
+.snackbar {
+  background-color: rgb(151, 237, 151);
+  font-family: var(--open-sans);
+  width: 300px;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  animation: appear 0.5s ease;
+  display: flex;
+  justify-content: space-between;
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.snackbar button {
+  font-size: 1rem;
+  margin-right: 5px;
+}
