@@ -1,4 +1,4 @@
-function escape(str) {
+const escape = (str) => {
   return str
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
@@ -6,9 +6,9 @@ function escape(str) {
     .replace(/`/g, "&#96;")
     .replace(/"/g, "&quot;")
     .replace(/\n/g, "<br />");
-}
+};
 
-function unescape(str) {
+const unescape = (str) => {
   return str
     .replace(/&lt;/g, "<")
     .replace(/&#39;/g, "'")
@@ -16,6 +16,6 @@ function unescape(str) {
     .replace(/&quot;/g, '"')
     .replace(/<br>/g, "\n")
     .replace(/&amp;/g, "&");
-}
+};
 
 module.exports = { escape, unescape };

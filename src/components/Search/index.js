@@ -1,7 +1,11 @@
 import "./Search.css";
 import searchIcon from "./../../assets/img/search.png";
+import { Context } from "./../../App";
+import { useContext } from "react";
 
-function Search({ searchText, setSearchText }) {
+const Search = () => {
+  const { searchText, setSearchText } = useContext(Context);
+
   return (
     <div className="search">
       <img src={searchIcon} alt="search icon" />
@@ -13,6 +17,6 @@ function Search({ searchText, setSearchText }) {
       />
     </div>
   );
-}
+};
 
 export default Search;

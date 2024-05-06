@@ -7,7 +7,7 @@ const collectionName = "notes";
 let currentId = 0;
 
 function notesRepo() {
-  async function load(notes) {
+  const load = async (notes) => {
     return new Promise(async (resolve, reject) => {
       const client = new MongoClient(url);
       try {
@@ -25,9 +25,9 @@ function notesRepo() {
         client.close();
       }
     });
-  }
+  };
 
-  async function get(query = {}, limit = 0) {
+  const get = async (query = {}, limit = 0) => {
     return new Promise(async (resolve, reject) => {
       const client = new MongoClient(url);
       try {
@@ -45,9 +45,9 @@ function notesRepo() {
         client.close();
       }
     });
-  }
+  };
 
-  async function getById(id) {
+  const getById = async (id) => {
     return new Promise(async (resolve, reject) => {
       const client = new MongoClient(url);
       try {
@@ -64,9 +64,9 @@ function notesRepo() {
         client.close();
       }
     });
-  }
+  };
 
-  async function post(note) {
+  const post = async (note) => {
     return new Promise(async (resolve, reject) => {
       const client = new MongoClient(url);
       try {
@@ -82,9 +82,9 @@ function notesRepo() {
         client.close();
       }
     });
-  }
+  };
 
-  async function put(id, note) {
+  const put = async (id, note) => {
     return new Promise(async (resolve, reject) => {
       const client = new MongoClient(url);
       try {
@@ -102,9 +102,9 @@ function notesRepo() {
         client.close();
       }
     });
-  }
+  };
 
-  async function remove(id) {
+  const remove = async (id) => {
     return new Promise(async (resolve, reject) => {
       const client = new MongoClient(url);
       try {
@@ -119,7 +119,7 @@ function notesRepo() {
         client.close();
       }
     });
-  }
+  };
 
   return { load, get, getById, post, put, remove };
 }

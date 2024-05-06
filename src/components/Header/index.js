@@ -1,17 +1,21 @@
 import "./Header.css";
 import icon from "./../../assets/img/icon.png";
 import Search from "./../Search";
+import { useContext } from "react";
+import { Context } from "./../../App";
 
-function Header({ searchText, setSearchText }) {
+const Header = () => {
+  const { isServerFound } = useContext(Context);
+
   return (
     <header>
       <nav>
         <img src={icon} alt="icon" width="40" height="40" />
         <h1>My Note Keeper </h1>
       </nav>
-      <Search searchText={searchText} setSearchText={setSearchText} />
+      {isServerFound && <Search />}
     </header>
   );
-}
+};
 
 export default Header;

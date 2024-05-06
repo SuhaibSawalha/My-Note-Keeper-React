@@ -7,7 +7,7 @@ const url = "mongodb://localhost:27017";
 const dbName = "MyNoteKeeper";
 const collectionName = "notes";
 
-(async function main() {
+(async () => {
   const client = new MongoClient(url);
   try {
     await client.connect();

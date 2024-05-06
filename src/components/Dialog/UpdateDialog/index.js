@@ -1,48 +1,21 @@
 import Dialog from "./../";
 import "./../Dialog.css";
-import { useState } from "react";
+import useInput from "./../../../Hooks/useInput";
 
-function UpdateDialog({ note, onCancel, onUpdate }) {
-  const [newNote, setNewNote] = useState(note);
+const UpdateDialog = ({ note, onCancel, onUpdate }) => {
+  const titleField = useInput(note.title);
+  const contentField = useInput(note.content);
 
-  const [fillTitle, setFillTitle] = useState(false);
-  const [fillContent, setFillContent] = useState(false);
-
-  function handleUpdate() {
-    let shouldUpdate = true;
-    if (!newNote.title.trim()) {
-      setFillTitle(true);
-      shouldUpdate = false;
-    } else {
-      setFillTitle(false);
+  const handleUpdate = () => {
+    if (titleField.isError() || contentField.isError()) {
+      return;
     }
-    if (!newNote.content.trim()) {
-      setFillContent(true);
-      shouldUpdate = false;
-    } else {
-      setFillContent(false);
-    }
-    if (shouldUpdate) {
-      onUpdate(newNote);
-    }
-  }
-
-  const handleOnChangeTitle = (e) => {
-    setNewNote({ ...newNote, title: e.target.value });
-    if (e.target.value.trim()) {
-      setFillTitle(false);
-    } else {
-      setFillTitle(true);
-    }
-  };
-
-  const handleOnChangeContent = (e) => {
-    setNewNote({ ...newNote, content: e.target.value });
-    if (e.target.value.trim()) {
-      setFillContent(false);
-    } else {
-      setFillContent(true);
-    }
+    onUpdate({
+      _id: note._id,
+      title: titleField.value,
+      content: contentField.value,
+      creationDate: note.creationDate,
+    });
   };
 
   return (
@@ -52,18 +25,18 @@ function UpdateDialog({ note, onCancel, onUpdate }) {
         id="title"
         type="text"
         defaultValue={note.title}
-        onChange={handleOnChangeTitle}
-        {...(fillTitle && { className: "input-error" })}
+        onChange={titleField.handleOnChange}
       />
-      {fillTitle && <p className="error">Please fill the title</p>}
+      {titleField.isError() && <p className="error">Please fill the title</p>}
       <label htmlFor="content">Content</label>
       <textarea
         id="content"
         defaultValue={note.content}
-        onChange={handleOnChangeContent}
-        {...(fillContent && { className: "input-error" })}
+        onChange={contentField.handleOnChange}
       ></textarea>
-      {fillContent && <p className="error">Please fill the content</p>}
+      {contentField.isError() && (
+        <p className="error">Please fill the content</p>
+      )}
       <div className="btn-container">
         <button onClick={onCancel} className="btn-cancel">
           Cancel
@@ -74,6 +47,6 @@ function UpdateDialog({ note, onCancel, onUpdate }) {
       </div>
     </Dialog>
   );
-}
+};
 
 export default UpdateDialog;

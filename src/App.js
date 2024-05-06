@@ -1,16 +1,22 @@
 import "./App.css";
 import Header from "./components/Header";
 import Main from "./components/Main";
-import { useState } from "react";
+import React, { useState } from "react";
+
+export const Context = React.createContext();
 
 function App() {
   const [searchText, setSearchText] = useState("");
+  const [isServerFound, setIsServerFound] = useState(false);
 
   return (
-    <div className="App">
-      <Header searchText={searchText} setSearchText={setSearchText} />
-      <Main searchText={searchText} />
-    </div>
+    <Context.Provider
+      value={{ searchText, setSearchText, isServerFound, setIsServerFound }}
+      className="App"
+    >
+      <Header />
+      <Main />
+    </Context.Provider>
   );
 }
 

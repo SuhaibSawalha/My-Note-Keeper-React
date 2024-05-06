@@ -7,6 +7,10 @@ app.use(express.json());
 
 const notesRepo = require("../repo/notesRepo");
 
+const validId = (id) => {
+  return /^\d+$/.test(id);
+};
+
 app.get("/api/notes", async (req, res) => {
   res.send(await notesRepo.get());
 });
@@ -22,7 +26,7 @@ app.get("/api/notes/search", async (req, res) => {
 
 app.get("/api/notes/:id", async (req, res) => {
   const id = req.params.id;
-  if (!/^\d+$/.test(id)) {
+  if (!validId(id)) {
     return res.status(400).send("Invalid id format");
   }
   const note = await notesRepo.getById(parseInt(id));
@@ -37,13 +41,13 @@ const schema = Joi.object({
   content: Joi.string().min(1).required(),
   creationDate: Joi.date().required(),
 }).strict();
-function validateNote(note) {
+const validateNote = (note) => {
   return schema.validate({
     title: note.title,
     content: note.content,
     creationDate: new Date(note.creationDate),
   });
-}
+};
 
 app.post("/api/notes", async (req, res) => {
   const body = req.body;
@@ -58,7 +62,7 @@ app.post("/api/notes", async (req, res) => {
 app.put("/api/notes/:id", async (req, res) => {
   const id = req.params.id;
   const body = req.body;
-  if (!/^\d+$/.test(id)) {
+  if (!validId(id)) {
     return res.status(400).send("Invalid id format");
   }
   const note = await notesRepo.getById(parseInt(id));
@@ -75,7 +79,7 @@ app.put("/api/notes/:id", async (req, res) => {
 
 app.delete("/api/notes/:id", async (req, res) => {
   const id = req.params.id;
-  if (!/^\d+$/.test(id)) {
+  if (!validId(id)) {
     return res.status(400).send("Invalid id format");
   }
   const note = await notesRepo.getById(parseInt(id));

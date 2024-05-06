@@ -1,7 +1,7 @@
 import "./Snackbar.css";
 import { useState } from "react";
 
-function Snackbar({ content }) {
+const Snackbar = ({ content }) => {
   const [isSnackbarVisible, setIsSnackbarVisible] = useState(true);
 
   return (
@@ -14,6 +14,6 @@ function Snackbar({ content }) {
       </div>
     )
   );
-}
+};
 
 export default Snackbar;

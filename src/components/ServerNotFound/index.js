@@ -1,6 +1,6 @@
 import "./ServerNotFound.css";
 
-function ServerNotFound() {
+const ServerNotFound = () => {
   return (
     <div className="server-not-found">
       <h2>Server Not Found</h2>
@@ -32,6 +32,6 @@ function ServerNotFound() {
       </p>
     </div>
   );
-}
+};
 
 export default ServerNotFound;

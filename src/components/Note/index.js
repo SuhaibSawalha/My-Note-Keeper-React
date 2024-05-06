@@ -3,46 +3,38 @@ import { useState } from "react";
 import { escape } from "../../assets/js/escaping";
 import DeleteDialog from "./../Dialog/DeleteDialog";
 import UpdateDialog from "./../Dialog/UpdateDialog";
+import { beautifulColors } from "./../../assets/js/constants";
 
-const beautifulColors = [
-  "#ADD8E6", // Pale Blue
-  "#98FF98", // Mint Green
-  "#E6E6FA", // Lavender
-  "#FFDAB9", // Peach
-  "#FF7F50", // Coral
-  "#87CEEB", // Sky Blue
-  "#DA70D6", // Orchid
-  "#FA8072", // Salmon
-  "#40E0D0", // Turquoise
-  "#FFD700", // Gold
-  "#C8A2C8", // Lilac
-  "#6A5ACD", // Slate Blue
-  "#2E8B57", // Seafoam Green
-  "#FF007F", // Rose
-  "#CCCCFF", // Periwinkle
-];
-
-function Note({ note, removeNote, updateNote }) {
+const Note = ({ note, removeNote, updateNote }) => {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
-  function openDeleteDialog(e) {
+  const [isUpdateDialogOpen, setIsUpdateDialogOpen] = useState(false);
+
+  const openDeleteDialog = (e) => {
     e.stopPropagation();
     document.querySelector("body").style.overflow = "hidden";
     setIsDeleteDialogOpen(true);
-  }
-  function closeDeleteDialog() {
+  };
+  const closeDeleteDialog = () => {
     document.querySelector("body").style.overflow = "auto";
     setIsDeleteDialogOpen(false);
-  }
+  };
+  const handleDelete = () => {
+    removeNote(note._id);
+    closeDeleteDialog();
+  };
 
-  const [isUpdateDialogOpen, setIsUpdateDialogOpen] = useState(false);
-  function openUpdateDialog() {
+  const openUpdateDialog = () => {
     document.querySelector("body").style.overflow = "hidden";
     setIsUpdateDialogOpen(true);
-  }
-  function closeUpdateDialog() {
+  };
+  const closeUpdateDialog = () => {
     document.querySelector("body").style.overflow = "auto";
     setIsUpdateDialogOpen(false);
-  }
+  };
+  const handleUpdate = (newNote) => {
+    updateNote(newNote);
+    closeUpdateDialog();
+  };
 
   return (
     <div>
@@ -50,20 +42,14 @@ function Note({ note, removeNote, updateNote }) {
         <DeleteDialog
           title={note.title}
           onCancel={closeDeleteDialog}
-          onDelete={() => {
-            removeNote(note._id);
-            closeDeleteDialog();
-          }}
+          onDelete={handleDelete}
         />
       )}
       {isUpdateDialogOpen && (
         <UpdateDialog
           note={note}
           onCancel={closeUpdateDialog}
-          onUpdate={(newNote) => {
-            updateNote(newNote);
-            closeUpdateDialog();
-          }}
+          onUpdate={handleUpdate}
         />
       )}
       <div
@@ -72,7 +58,7 @@ function Note({ note, removeNote, updateNote }) {
           backgroundColor: beautifulColors[note._id % beautifulColors.length],
         }}
         role="button"
-        onClick={() => openUpdateDialog()}
+        onClick={openUpdateDialog}
       >
         <div>
           <h3
@@ -93,6 +79,6 @@ function Note({ note, removeNote, updateNote }) {
       </div>
     </div>
   );
-}
+};
 
 export default Note;

@@ -1,7 +1,7 @@
 import Dialog from "./../";
 import "./../Dialog.css";
 
-function DeleteDialog({ title, onCancel, onDelete }) {
+const DeleteDialog = ({ title, onCancel, onDelete }) => {
   return (
     <Dialog>
       <h2>{title}</h2>
@@ -16,6 +16,6 @@ function DeleteDialog({ title, onCancel, onDelete }) {
       </div>
     </Dialog>
   );
-}
+};
 
 export default DeleteDialog;

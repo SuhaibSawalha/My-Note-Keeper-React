@@ -13,7 +13,7 @@
 .take-note .hidden-form {
   overflow: hidden;
   max-height: 0;
-  transition: max-height 0.7s ease;
+  transition: max-height 0.7s ease-in-out;
 }
 
 .take-note .hidden-form.active {
