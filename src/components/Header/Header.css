@@ -1,0 +1,16 @@
+header {
+  border: 1px solid var(--secondary-background-color);
+  display: flex;
+  align-items: center;
+}
+
+nav {
+  display: flex;
+  padding: 10px 20px;
+  align-items: center;
+}
+
+nav h1 {
+  margin-left: 10px;
+  font-family: var(--protest);
+}
